@@ -1,4 +1,19 @@
-#!/bin/sh
-# TODO: Make this a proper shell script
-dir -1 | perl -ne 'chomp; next if /install/; print ".$_\n";`cp -r $_ ~/.$_`'
-echo DONE
+#!/usr/bin/perl
+my ($command, $prefix);
+if ( $^O =~ /Win32/ ) {
+	$prefix  = '_';
+	$home    = $ENV{"HOMEPATH"};
+	$home    =~ s|\\|\\\\|g;
+	$command = '"xcopy $_ ' . $ENV{"HOMEDIVE"} . '\"' . 
+		$home . '\\\\\"\\' . $prefix . '$_ /e /y"';
+}
+else {
+	$prefix  = '.';
+	$command = 'cp -r $_ ' . $ENV{"HOME"} . '/' . $prefix . '$_';
+}
+
+for (<*>) {
+	next if /install|README/;
+	print eval $command, "\n";
+	system eval $command;
+}
