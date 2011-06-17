@@ -23,7 +23,7 @@ if ( $^O =~ /Win32/ ) {
 }
 else {
 	$prefix  = '.';
-	$command = 'cp -r $_ ' . $ENV{"HOME"} . '/' . $prefix . '$_';
+	$command = '"cp -r $_ ' . $ENV{"HOME"} . '/' . $prefix . '$_"';
 }
 
 for (<*>) {
