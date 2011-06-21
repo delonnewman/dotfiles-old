@@ -10,7 +10,7 @@ set viminfo+=!
 " Theme/Colors
 set background=dark
 syntax on
-colorscheme wombat
+colorscheme solarized
 
 " Files/Backups
 "set backup
