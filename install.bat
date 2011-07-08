@@ -1,0 +1,2 @@
+@ECHO OFF
+perl install

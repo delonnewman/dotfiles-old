@@ -1,3 +1,35 @@
-#!/bin/sh
-dir -1 | perl -ne 'chomp;print "$_\n";`cp -r $_ ~/$_`'
-echo done
+#!/usr/bin/perl -w
+# Cross-platform install script, just need perl
+
+my ($command, $prefix);
+my  $ignore = 'install|README';
+
+if ( $^O =~ /Win32/ ) {
+	$ignore  .= '|\bvim\b';
+	$prefix  = '_';
+	$home    = $ENV{"HOMEPATH"};
+	$home    =~ s|\\|\\\\|g;
+	$command = '"xcopy $_ ' . $ENV{"HOMEDRIVE"} . '\"' . 
+		$home . '\\\\\"\\' . $prefix . '$_ /e /y"';
+	`xcopy vim\\* "C:\\Program Files\\Vim\\vimfiles" /e /y`;
+	open GVIMRC, '<gvimrc' || die "Can't read gvimrc: $!";
+	$gvimrc = do { local $/; <GVIMRC> };
+	close GVIMRC;
+	if ( $gvimrc ) {
+		$gvimrc =~ s|"Monospace 10"|Courier_New:h9|;
+		open GVIMRC, '>gvimrc' || die "Can't write to gvimrc: $!";
+		print GVIMRC $gvimrc;
+		close GVIMRC;
+	}
+}
+else {
+	$prefix  = '.';
+	$command = '"cp -r $_ ' . $ENV{"HOME"} . '/' . $prefix . '$_"';
+}
+
+for (<*>) {
+	next if /$ignore/;
+	print eval $command, "\n";
+	system eval $command;
+}
+print "DONE.\n";

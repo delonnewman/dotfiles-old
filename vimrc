@@ -2,6 +2,9 @@
 "set nocompatible
 filetype on
 filetype plugin on
+filetype indent plugin on
+set ofu=syntaxcomplete#Complete
+set modeline
 set history=1000
 set clipboard+=unnamed
 set ffs=unix,dos,mac
@@ -10,7 +13,7 @@ set viminfo+=!
 " Theme/Colors
 set background=dark
 syntax on
-colorscheme wombat
+colorscheme rdark
 
 " Files/Backups
 "set backup
@@ -43,12 +46,25 @@ set laststatus=2 " always show the status line
 set ai " autoindent
 set si " smartindent
 set cindent " c style indenting
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set noexpandtab
+" set tabstop=2
+" set softtabstop=2
+" set shiftwidth=2
+" set noexpandtab
 set wrap
 set smarttab
+
+" MiniBufExplorer
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+
+" Tasklist
+map T :TaskList<CR>
+map P :TlistToggle<CR>
+
+" Python indent
+au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
 set dict+=~/.vim/dictionaries/drupal50-functions.dict
 
@@ -66,4 +82,4 @@ if has("autocmd")
 		autocmd BufRead,BufNewFile *.install set filetype=php
 	augroup END
 endif
-syntax on
+

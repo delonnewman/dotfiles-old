@@ -49,8 +49,6 @@ export CDPATH=.:~:/mnt:/:/etc/:/var:/usr
 export HISTIGNORE="&:ls:[bf]g:exit"
 export MANPATH=$MANPATH:/opt/gnome/man
 export EDITOR=vim
-export GOOGLE_LICENCE_KEY=Qiec/P9QFHIE7ofSq7MKF1OxahPLxlV1
-export JAVA_HOME="/usr/lib/jvm/java-6-sun-1.6.0.03"
 
 #
 # Shell Options
