@@ -2,6 +2,8 @@
 "set nocompatible
 filetype on
 filetype plugin on
+filetype indent plugin on
+set modeline
 set history=1000
 set clipboard+=unnamed
 set ffs=unix,dos,mac
@@ -10,7 +12,7 @@ set viminfo+=!
 " Theme/Colors
 set background=dark
 syntax on
-colorscheme solarized
+colorscheme molokai
 
 " Files/Backups
 "set backup
@@ -66,4 +68,4 @@ if has("autocmd")
 		autocmd BufRead,BufNewFile *.install set filetype=php
 	augroup END
 endif
-syntax on
+
