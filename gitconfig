@@ -1,0 +1,9 @@
+[user]
+	name = Delon Newman
+	email = delon.newman@gmail.com
+[giggle]
+	main-window-maximized = false
+	main-window-geometry = 804x456+2247+319
+	main-window-view = FileView
+	history-view-vpane-position = 204
+	file-view-vpane-position = 340
