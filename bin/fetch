@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# setup environment
+
+# Git
+if [ -z $(which git) ]; then
+	sudo apt-get install git-core
+fi
+
+# Curl
+if [ -z $(which git) ]; then
+	sudo apt-get install curl
+fi
+
+# RVM
+if [ -z $(which rvm) ]; then
+	bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
+fi
+
+# install ruby-1.9.2
+# clone https://github.com/delonnewman/dotfiles.git
+# run rake install in dotfiles dir
