@@ -1,7 +1,7 @@
 require 'erb'
 require 'fileutils'
 
-HOME = '/tmp/dot' #RUBY_PLATFORM =~ /win32/i ? ENV['HOMEPATH'] : ENV['HOME']
+HOME = RUBY_PLATFORM =~ /win32/i ? ENV['HOMEPATH'] : ENV['HOME']
 
 desc "install dotfiles in home path"
 task :install do
