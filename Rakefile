@@ -7,10 +7,10 @@ desc "install dotfiles in home path"
 task :install do
   puts "Installing dotfiles..."
   Dir['src/*'].each do |fname|
-    puts "#{fname} => #{File.join(HOME, ".#{File.basename(fname)}")}"
+    dir = File.join(HOME, ".#{File.basename(fname)}")
+    puts "#{fname} => #{dir}"
     if File.directory?(fname)
-      FileUtils.cp_r fname, File.join(HOME, File.basename(fname)),
-                     :remove_destination => true
+      FileUtils.cp_r fname, dir, :remove_destination => true
     else
 	    File.open(File.join(HOME, ".#{File.basename(fname)}"), 'w') do |f|
 	      f.write(ERB.new(IO.read(fname)).result)
