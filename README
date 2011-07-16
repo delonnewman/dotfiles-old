@@ -1,16 +1,11 @@
 == INSTALL
 
-== Linux/Unix
-
-Should install out of the box, just requires perl and bash
+Should install out of the box, just requires ruby & rake
 
 > git clone https://delonnewman@github.com/delonnewman/dotfiles.git
 > cd dotfiles
-> ./install
+> rake install
 
-== Windows
+or
 
-> git clone https://delonnewman@github.com/delonnewman/dotfiles.git
-> cd dotfiles
-> install
-
+bash < <(https://raw.github.com/delonnewman/dotfiles/master/bin/fetch)
