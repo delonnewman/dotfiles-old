@@ -43,3 +43,6 @@ export EDITOR=vim
 shopt -s cdspell
 shopt -s cmdhist
 shopt -s dotglob
+
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
