@@ -18,13 +18,13 @@ GEMS=(rails sinatra datamapper haml rake)
 function install {
 	pkgs=$@
 	for pkg in ${pkgs[@]}; do
-		path=$(which $pkg)
-		if [ -z $path ]; then
+		pkg_status=$(dpkg-query -W -f='${Status} ${Version}\n' $pkg 2> /dev/null)
+		if [[ $pkg_stats =~ 'installed' ]]; then
+			echo $pkg is already installed.
+		else
 			echo Installing $pkg...
 			sudo apt-get -y --force-yes install $pkg
 			echo DONE.
-		else
-			echo $pkg is already installed.
 		fi
 	done
 
