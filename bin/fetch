@@ -12,7 +12,7 @@ function install {
 	if [ -z $path ]; then
 		echo Installing $pkg...
 		if [ -z $cmd ]; then
-			sudo apt-get install $pkg
+			sudo apt-get -y --force-yes install $pkg
 		else
 			$($cmd)
 		fi
