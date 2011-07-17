@@ -1,25 +1,31 @@
 #!/usr/bin/env bash
 # setup environment
 
+#
+# CONFIG
+#
 RUBY_VERSION=1.9.2
 GIT_REPO=https://github.com/delonnewman/dotfiles.git
 TMP_DIR=/tmp
+PREREQS=(git curl)
+PACKAGES=(vim-gnome)
+
+#
+# COLORS
+#
 
 function install {
-	pkg=$1
-	cmd=$2
-	path=$(which $pkg)
-	if [ -z $path ]; then
-		echo Installing $pkg...
-		if [ -z $cmd ]; then
+	pkgs=$@
+	for pkg in ${pkgs[@]}; do
+		path=$(which $pkg)
+		if [ -z $path ]; then
+			echo Installing $pkg...
 			sudo apt-get -y --force-yes install $pkg
+			echo DONE.
 		else
-			$($cmd)
+			echo $pkg is already installed.
 		fi
-		echo DONE.
-	else
-		echo $pkg is already installed.
-	fi
+	done
 
 }
 
@@ -27,8 +33,7 @@ echo "=> Installing prereqs..."
 echo
 
 # install prereqs
-install git
-install curl
+install ${PREREQS[@]}
 
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
 	echo rvm is already installed.
@@ -57,6 +62,9 @@ cd dotfiles &&
 rake install &&
 cd .. &&
 rm -rf dotfiles
+
+# install other packages
+install ${PACKAGES[@]}
 
 echo
 echo 'Your environment is configured... mostly ;-)'
