@@ -56,7 +56,7 @@ fi
 
 echo
 echo '==> installing some default gems...'
-echo ' ***GEMS*** '
+echo ' <Thar be treasure!> '
 
 for gem in ${GEMS[@]}; do
 	if [[ $(gem list $gem) =~ $gem ]]; then
