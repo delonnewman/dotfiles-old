@@ -19,7 +19,7 @@ function install {
 	pkgs=$@
 	for pkg in ${pkgs[@]}; do
 		pkg_status=$(dpkg-query -W -f='${Status} ${Version}\n' $pkg 2> /dev/null)
-		if [[ $pkg_stats =~ 'installed' ]]; then
+		if [[ $pkg_status =~ 'installed' ]]; then
 			echo $pkg is already installed.
 		else
 			echo Installing $pkg...
