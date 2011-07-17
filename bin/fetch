@@ -56,6 +56,7 @@ fi
 
 echo
 echo '==> installing some default gems...'
+echo ' ***GEMS*** '
 
 for gem in ${GEMS[@]}; do
 	if [[ $(gem list $gem) =~ $gem ]]; then
@@ -66,8 +67,8 @@ for gem in ${GEMS[@]}; do
 	fi
 done
 
-echo 'DONE.'
 echo
+echo 'DONE.'
 
 echo
 echo 'WOOT!'
@@ -89,11 +90,13 @@ fi
 echo
 echo OK, the basics are done.
 echo '====> Installing some other useful packages...'
+echo
 
 install ${PACKAGES[@]}
 
 echo
 echo 'DONE. @> <tweet!>'
 echo '     <|>'
-echo
+echo '      ^ '
 echo 'Your environment is configured as best I know how ;-)'
+echo
