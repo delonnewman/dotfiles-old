@@ -57,7 +57,14 @@ fi
 echo
 echo '==> installing some default gems...'
 
-rvm gem install ${GEMS[@]}
+for gem in ${GEMS[@]}; do
+	if [[ $(gem list $gem) =~ $gem ]]; then
+		echo $gem is already installed.
+	else
+		echo installing $gem...
+		rvm gem $RUBY_VERSION install $gem
+	fi
+done
 
 echo 'DONE.'
 echo
