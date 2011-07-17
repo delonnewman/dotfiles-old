@@ -8,7 +8,7 @@ RUBY_VERSION=1.9.2
 GIT_REPO=https://github.com/delonnewman/dotfiles.git
 TMP_DIR=/tmp
 PREREQS=(git curl)
-PACKAGES=(vim-gnome)
+PACKAGES=(vim-gnome openssh-client)
 
 #
 # COLORS
@@ -64,6 +64,10 @@ cd .. &&
 rm -rf dotfiles
 
 # install other packages
+echo
+echo OK, the basics are done. Installing some other useful packages...
+echo '====>'
+
 install ${PACKAGES[@]}
 
 echo
