@@ -30,7 +30,7 @@ function install {
 
 }
 
-echo "=> Installing prereqs..."
+echo "=> installing prereqs..."
 echo
 
 # install prereqs
@@ -70,9 +70,8 @@ echo 'DONE.'
 echo
 
 echo
-echo 'DONE. -->  WOOT!'
-echo ===================================================================
-echo "==> fetching dotfiles repo from $GIT_REPO into $TMP_DIR..."
+echo 'WOOT!'
+echo "==> fetching dotfiles repo from $GIT_REPO..."
 echo
 
 # install dotfiles
@@ -88,12 +87,13 @@ fi
 
 # install other packages
 echo
-echo OK, the basics are done. Installing some other useful packages...
-echo '====>'
+echo OK, the basics are done.
+echo '====> Installing some other useful packages...'
 
 install ${PACKAGES[@]}
 
 echo
-echo 'DONE. --> --> -->'
+echo 'DONE. @> <tweet!>'
+echo '     <|>'
 echo
 echo 'Your environment is configured as best I know how ;-)'
