@@ -8,4 +8,6 @@ Should install out of the box, just requires ruby & rake
 
 or
 
-bash < <(curl -s https://raw.github.com/delonnewman/dotfiles/master/bin/fetch)
+just need bash & curl
+
+> bash < <(curl -s https://raw.github.com/delonnewman/dotfiles/master/bin/fetch)
