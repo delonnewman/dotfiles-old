@@ -89,7 +89,7 @@ fi
 # install other packages
 echo
 echo OK, the basics are done.
-echo '====> Installing some other useful packages...'
+echo '====> installing some other useful packages...'
 echo
 
 install ${PACKAGES[@]}
