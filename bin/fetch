@@ -79,13 +79,18 @@ echo 'WOOT!'
 echo "===> fetching dotfiles repo from $GIT_REPO..."
 echo
 
+# if needed clean up after previous (failed) installation
+if [[ -e "$TMP_DIR/dotfiles" ]]; then
+	rm -f "$TMP_DIR/dotfiles"
+fi
+
 # install dotfiles
 cd $TMP_DIR &&
-git clone --depth 1 $GIT_REPO &&
+git clone --depth 1 -- $GIT_REPO &&
 cd dotfiles &&
-rake install &&
+rake install
 
-# clean-up
+# clean up after yourself :-|
 if [[ -e "$TMP_DIR/dotfiles" ]]; then
 	rm -rf "$TMP_DIR/dotfiles"
 fi
