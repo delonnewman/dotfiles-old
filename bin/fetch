@@ -64,7 +64,7 @@ for gem in ${GEMS[@]}; do
 		echo $gem is already installed.
 	else
 		echo installing $gem...
-		rvm gem $RUBY_VERSION install $gem
+		rvm $RUBY_VERSION gem install $gem
 	fi
 done
 
