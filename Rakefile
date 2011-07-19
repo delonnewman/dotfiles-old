@@ -11,7 +11,9 @@ def Dir.walk(dir, &blk)
   else
     Dir.entries(dir).each do |f|
       next if f == '.' || f == '..'
-      Dir.walk(File.join(dir, f), &blk)
+      path = File.join(dir, f)
+      blk.call(path)
+      Dir.walk(path, &blk)
     end
   end
 end
@@ -23,8 +25,10 @@ module Dotfiles
 	  def self.generate
 		  @@sums = {}
 		  Dir.walk('src') do |fname|
-		    sum = Digest::SHA256.new.update(IO.read(fname)).to_s
-		    @@sums[fname] = sum
+		    if not File.directory?(fname)
+		      sum = Digest::SHA256.new.update(IO.read(fname)).to_s
+		      @@sums[fname] = sum
+		    end
 		  end
 	    @@sums['total'] = Digest::SHA256.new.update(@@sums.values.join('')).to_s
 	    @@sums
@@ -79,7 +83,7 @@ desc "generate checksum profile of files"
 task :checksum do
   puts "Generating checksums..."
   Dotfiles::Sums.generate
-  
+
   puts "writing file to #{Dotfiles::Sums::PATH}..."
   Dotfiles::Sums.save
 
