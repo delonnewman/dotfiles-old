@@ -12,6 +12,9 @@ PREREQS=(git curl build-essential bison openssl libreadline6 libreadline6-dev cu
 PACKAGES=(vim-gnome tig openssh-client htop)
 GEMS=(rails sinatra datamapper haml rake chef rspec cucumber)
 
+FETCH_SRC="#!/usr/bin/env bash
+bash < <(curl -s $SELF_URL)"
+
 #
 # COLORS
 #
@@ -109,8 +112,7 @@ echo "DONE."
 echo
 
 echo "====> installing myself in $HOME/bin/fetch-dotfiles..."
-echo "#!/usr/bin/env bash" >> $HOME/bin/fetch-dotfiles
-echo "bash < <(curl -s $SELF_URL)" >> $HOME/bin/fetch-dotfiles
+echo $FETCH_SRC > $HOME/bin/fetch-dotfiles
 chmod +x  $HOME/bin/fetch-dotfiles
 echo 'DONE. @> <tweet!>'
 echo '     <|>'
