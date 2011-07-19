@@ -6,6 +6,7 @@
 #
 RUBY_VERSION=1.9.2
 GIT_REPO=https://github.com/delonnewman/dotfiles.git
+SELF_URL=https://raw.github.com/delonnewman/dotfiles/master/bin/fetch
 TMP_DIR=/tmp
 PREREQS=(git curl build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev)
 PACKAGES=(vim-gnome tig openssh-client htop)
@@ -15,7 +16,7 @@ GEMS=(rails sinatra datamapper haml rake chef rspec cucumber)
 # COLORS
 #
 
-function install {
+function pkg_install {
 	pkgs=$@
 	for pkg in ${pkgs[@]}; do
 		pkg_status=$(dpkg-query -W -f='${Status} ${Version}\n' $pkg 2> /dev/null)
@@ -34,7 +35,7 @@ echo "=> installing prereqs..."
 echo
 
 # install prereqs
-install ${PREREQS[@]}
+pkg_install ${PREREQS[@]}
 echo
 
 # install RVM
@@ -101,11 +102,22 @@ echo OK, the basics are done.
 echo '====> installing some other useful packages...'
 echo
 
-install ${PACKAGES[@]}
+pkg_install ${PACKAGES[@]}
 
 echo
+echo "DONE."
+echo
+
+echo "====> installing myself in $HOME/bin/fetch-dotfiles..."
+echo "#!/usr/bin/env bash" >> $HOME/bin/fetch-dotfiles
+echo "bash < <(curl -s $SELF_URL)" >> $HOME/bin/fetch-dotfiles
+chmod +x  $HOME/bin/fetch-dotfiles
 echo 'DONE. @> <tweet!>'
 echo '     <|>'
 echo '      ^ '
-echo 'Your environment is configured as best I know how ;-)'
+
 echo
+echo 'Your environment is configured as best I know how ;-)'
+echo "NOTE: if you need me again just type 'fetch-dotfiles'"
+echo
+
