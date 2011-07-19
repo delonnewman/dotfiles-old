@@ -36,6 +36,9 @@ function pkg_install {
 
 }
 
+echo '/\ |_ () |-| /\'
+
+echo
 echo "=> installing prereqs..."
 echo
 
