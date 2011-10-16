@@ -36,6 +36,7 @@ export CDPATH=.:~:/mnt:/:/etc/:/var:/usr
 export HISTIGNORE="&:ls:[bf]g:exit"
 export MANPATH=$MANPATH:/opt/gnome/man
 export EDITOR=vim
+export BROWSER=$(which firefox)
 
 #
 # Shell Options
@@ -46,3 +47,26 @@ shopt -s dotglob
 
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+
+function web {
+    location=$@
+    if [ -z $@ ]; then
+	file=$(tempfile)
+
+	while read -t .5 line; do
+	    echo $line >> $file
+	done
+
+	if [ -s $file ]; then
+	    location=$file
+	fi
+    fi
+    $BROWSER $location &> /dev/null &
+}
+
+function google {
+    q=$@
+    q=${q// /+}
+    web "http://google.com/#q=$q"
+}
+
