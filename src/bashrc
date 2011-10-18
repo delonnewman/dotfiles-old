@@ -1,4 +1,36 @@
 # .bashrc
+
+#
+# Functions
+#
+
+function web {
+    location=$@
+    if [ -z $@ ]; then
+	file=$(tempfile)
+
+	while read -t .5 line; do
+	    echo $line >> $file
+	done
+
+	if [ -s $file ]; then
+	    location=$file
+	fi
+    fi
+    $BROWSER $location &> /dev/null &
+}
+
+function google {
+    q=$@
+    q=${q// /+}
+    web "http://google.com/#q=$q"
+}
+
+function git-branch {
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+    echo "git:${ref#refs/heads/}"
+}
+
 #
 # Prompt Customization
 #
@@ -10,7 +42,7 @@ COLOR4="\[\033[0;36m\]"
 COLOR5="\[\033[0;39m\]"
 #PS1="[\u@\h:\w]\n[\$> "
 #PS2=" | "
-PS1="$COLOR2[$COLOR4\u@\h$COLOR3:$COLOR5\w$COLOR2]$COLOR5$COLOR2\n$COLOR2[$COLOR4\$$COLOR2>$COLOR5 "
+PS1="$COLOR2[$COLOR4\u@\h$COLOR3:$COLOR5\w$COLOR2]$COLOR5$COLOR2\n$COLOR2[$COLOR4\$(git-branch)\$$COLOR2>$COLOR5 "
 PS2=" $COLOR2$COLOR1$COLOR3|$COLOR5 "
 PS4=" $COLOR3+$COLOR5 "
 #PROMPT_COMMAND="date '+%I:%M%P'";
@@ -47,26 +79,4 @@ shopt -s dotglob
 
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
-
-function web {
-    location=$@
-    if [ -z $@ ]; then
-	file=$(tempfile)
-
-	while read -t .5 line; do
-	    echo $line >> $file
-	done
-
-	if [ -s $file ]; then
-	    location=$file
-	fi
-    fi
-    $BROWSER $location &> /dev/null &
-}
-
-function google {
-    q=$@
-    q=${q// /+}
-    web "http://google.com/#q=$q"
-}
 
