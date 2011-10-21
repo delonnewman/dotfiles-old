@@ -1,7 +1,7 @@
 # .bashrc
 
 #
-# Alias'
+# Aliases
 # 
 alias ls='ls -sFk -h --color=auto'
 alias dir='dir --color=auto -1'
@@ -12,6 +12,11 @@ alias mime='file -i'
 alias rm='rm -r'
 alias cp='cp -r'
 
+# git aliases
+alias gc='git clone'
+alias gs='git status'
+alias gd='git diff'
+
 #
 # Envorionment Variables
 #
@@ -20,7 +25,7 @@ export PATH=$PATH:$HOME/bin:$HOME/.local/android-sdk-linux_86/tools:$HOME/.local
 export CDPATH=.:~:/media:/:/etc/:/var:/usr
 export HISTIGNORE="&:ls:[bf]g:exit"
 export EDITOR=vim
-export BROWSER=surf
+export BROWSER=firefox
 export GOOGLE="http://google.com?q="
 
 #
@@ -88,7 +93,7 @@ function progress {
 
 function get-time {
 	t=$(date +%I:%M:%S)
-	if (( $(date +%l) > 4 )); then
+	if (( $(date +%k) > 16 )); then
 		echo -e '\033[0;31m'$t
 	else
 		echo $t
