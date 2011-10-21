@@ -83,7 +83,10 @@ function gh-clone {
 	echo $USAGE
     else
 	repo=$1
-    	$(git clone $GITHUB/$repo.git)
+	url=$GITHUB/$repo.git
+
+	echo cloning from $url...
+    	$(git clone $url)
     fi
 }
 
@@ -93,23 +96,24 @@ function git-branch {
 }
 
 function progress {
-	cmd=$1
-	printf "[%60s] 0\045\r" " "
-	for ((i=1;i<=10;i++)) {
-	   $($cmd)
-	   printf "[%60s] $((i*10))\045\r" " "
-	   printf "[%$((i*6))s\r" " " | tr ' ' '#'
-	}
-	echo -e "\nDone."
+    cmd=$1
+    printf "[%60s] 0\045\r" " "
+    for ((i=1;i<=10;i++)) {
+       $($cmd)
+       printf "[%60s] $((i*10))\045\r" " "
+       printf "[%$((i*6))s\r" " " | tr ' ' '#'
+    }
+    echo -e "\nDone."
 }
 
 function get-time {
-	t=$(date +%I:%M:%S)
-	if (( $(date +%k) > 16 )); then
-		echo -e '\033[0;31m'$t
-	else
-		echo $t
-	fi
+    t=$(date +%I:%M:%S)
+    hour=$(date +%k)
+    if (( $hour > 16 )) || (( $hour < 4 )) ; then
+	echo -e '\033[0;31m'$t
+    else
+	echo $t
+    fi
 }
 
 #
