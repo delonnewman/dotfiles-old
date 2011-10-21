@@ -27,6 +27,7 @@ export HISTIGNORE="&:ls:[bf]g:exit"
 export EDITOR=vim
 export BROWSER=firefox
 export GOOGLE="http://google.com?q="
+export GITHUB=https://delonnewman@github.com/delonnewman
 
 #
 # Shell Options
@@ -72,6 +73,17 @@ function google {
         q=$@
         q=${q// /+}
         web "$GOOGLE"$q
+    fi
+}
+
+function gh-clone {
+    USAGE='Usage: gh-clone REPO'
+
+    if [ -z "$1" ]; then
+	echo $USAGE
+    else
+	repo=$1
+    	$(git clone $GITHUB/$repo.git)
     fi
 }
 
