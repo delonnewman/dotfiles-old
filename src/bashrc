@@ -19,7 +19,8 @@ alias vim='screen vim'
 alias gc='git clone'
 alias gs='git status'
 alias gd='git diff'
-alias gp='git push'
+alias gpush='git push'
+alias gpull='git pull'
 alias gcommit='git commit'
 
 #
