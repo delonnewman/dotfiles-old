@@ -11,11 +11,16 @@ alias r='fc -s'
 alias mime='file -i'
 alias rm='rm -r'
 alias cp='cp -r'
+alias grep='grep --color=auto'
+
+alias vim='screen vim'
 
 # git aliases
 alias gc='git clone'
 alias gs='git status'
 alias gd='git diff'
+alias gp='git push'
+alias gcommit='git commit'
 
 #
 # Envorionment Variables
@@ -87,6 +92,21 @@ function gh-clone {
 
 	echo cloning from $url...
     	$(git clone $url)
+    fi
+}
+
+function u1-clone {
+    USAGE='Usage: u1-clone REPO'
+    u1="$HOME/Ubuntu One/git"
+
+    if [ -z "$1" ]; then
+	echo $USAGE
+    else
+	repo=$1
+	path="$u1/$repo.git"
+
+	echo cloning from $path...
+    	$(git clone "$path")
     fi
 }
 
