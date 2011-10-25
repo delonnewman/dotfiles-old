@@ -16,6 +16,9 @@ alias grep='grep --color=auto'
 alias vim='screen vim'
 
 # git aliases
+alias ga='git add'
+alias gr='git remote'
+alias grm='git rm'
 alias gc='git clone'
 alias gs='git status'
 alias gd='git diff'
