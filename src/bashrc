@@ -32,7 +32,7 @@ export CDPATH=.:~:/media:/:/etc/:/var:/usr
 export HISTIGNORE="&:ls:[bf]g:exit"
 export EDITOR=vim
 export BROWSER=firefox
-export GOOGLE="http://google.com?q="
+export GOOGLE="http://google.com#q="
 export GITHUB=https://delonnewman@github.com/delonnewman
 
 #
