@@ -16,6 +16,9 @@ alias grep='grep --color=auto'
 alias vim='screen vim'
 
 # git aliases
+alias ga='git add'
+alias gr='git remote'
+alias grm='git rm'
 alias gc='git clone'
 alias gs='git status'
 alias gd='git diff'
@@ -44,6 +47,9 @@ shopt -s dotglob
 
 # Load RVM function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
+
+# load perlbrew
+[[ -s "$HOME/perl5/perlbrew/etc/bashrc" ]] && source "$HOME/perl5/perlbrew/etc/bashrc"
 
 #
 # Functions
