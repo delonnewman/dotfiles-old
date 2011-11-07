@@ -13,7 +13,7 @@ set viminfo+=!
 " Theme/Colors
 set background=dark
 syntax on
-colorscheme rdark
+colorscheme slate2
 
 " Files/Backups
 "set backup
