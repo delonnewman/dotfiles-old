@@ -36,7 +36,7 @@ set shortmess=atI
 " Visual Cues
 set showmatch " show matching brackets
 set mat=5 " rate of bracket blinkage (in tenths of a sec)
-set nohlsearch " no hightligh for search phrases
+set hlsearch " hightligh for search phrases
 set incsearch " but do highlight while searching
 set so=10
 set statusline=%F%m%r%h%w\ \|\ format:%{&ff}\ \|\ type:%y\ \|\ ascii:\%03.3b\ \|\ l%4.4l,\ c%4.4v\ \|\ %3.3p%%\ \|\ len:%L 
@@ -63,8 +63,8 @@ let g:miniBufExplModSelTarget = 1
 map T :TaskList<CR>
 "map P :TlistToggle<CR>
 
-" Python indent
 au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
+au FileType coffee setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 au FileType ruby setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
 set dict+=~/.vim/dictionaries/drupal50-functions.dict
@@ -89,3 +89,18 @@ autocmd BufRead *.vala set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 autocmd BufRead *.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 au BufRead,BufNewFile *.vala            setfiletype vala
 au BufRead,BufNewFile *.vapi            setfiletype vala
+
+set hls
+let g:HLSpace = 1
+let g:HLColorScheme = g:colors_name
+function ToggleSpaceUnderscoring()
+    if g:HLSpace
+        highlight Search cterm=underline gui=underline ctermbg=none guibg=none ctermfg=none guifg=none
+        let @/ = " "
+    else
+        highlight clear
+        silent colorscheme "".g:HLColorScheme
+        let @/ = ""
+    endif
+    let g:HLSpace = !g:HLSpace
+endfunction
