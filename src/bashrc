@@ -61,6 +61,29 @@ shopt -s dotglob
 # Functions
 #
 
+# colors
+GREY=30
+RED=31
+GREEN=32
+YELLOW=33
+BLUE=34
+PURPLE=35
+CYAN=36
+WHITE=39
+
+# bold / normal
+BOLD=1
+NORMAL=0
+
+function color {
+    COLOR=$1
+    BOLD=$2
+    if [ -z $2 ]; then
+        BOLD=0
+    fi
+    echo "\[\033[${BOLD};${COLOR}m\]"
+}
+
 function web {
     location=$@
     if [ -z $@ ]; then
@@ -169,29 +192,6 @@ function get-time {
 # Prompt Customization
 #
 
-# colors
-GREY=30
-RED=31
-GREEN=32
-YELLOW=33
-BLUE=34
-PURPLE=35
-CYAN=36
-WHITE=39
-
-# bold / normal
-BOLD=1
-NORMAL=0
-
-function color {
-    COLOR=$1
-    BOLD=$2
-    if [ -z $2 ]; then
-        BOLD=0
-    fi
-    echo "\[\033[${BOLD};${COLOR}m\]"
-}
-
 GRAD1=`tty|cut -d/ -f3-4`
 C1=$(color $WHITE  $BOLD)
 C2=$(color $YELLOW $BOLD)
@@ -205,7 +205,7 @@ if [ $(id -u) -eq 0 ]; then
     C4=$(color $RED $BOLD)
 fi
 
-# here's the real stuff
+# and here's the prompt
 PS1="$C2[$C4\u@\h$C3:$C5\w$C2] [$C3!$C4\! $C3@$C4\$(get-time)$C4 $C3&$C4\j$C2]\n$C2[$C3\$(git-branch)$C4\$$C2>$C5 "
 PS2=" $C3|$C5 "
 PS4=" $C3+$C5 "
