@@ -138,10 +138,14 @@ function progress {
     echo -e "\nDone."
 }
 
+# work hours
+END=16
+BEGIN=5
+
 function get-time {
     t=$(date +%I:%M:%S)
     hour=$(date +%k)
-    if (( $hour > 16 )) || (( $hour < 4 )) ; then
+    if (( $hour > $END )) || (( $hour < $BEGIN )) ; then
 	echo -e '\033[0;31m'$t
     else
 	echo $t
@@ -151,19 +155,44 @@ function get-time {
 #
 # Prompt Customization
 #
+
+# colors
+GREY=30
+RED=31
+GREEN=32
+YELLOW=33
+BLUE=34
+PURPLE=35
+CYAN=36
+WHITE=39
+
+# bold / normal
+BOLD=1
+NORMAL=0
+
+function color {
+	COLOR=$1
+	BOLD=$2
+	if [ -z $2 ]; then
+		BOLD=0
+	fi
+	echo "\[\033[${BOLD};${COLOR}m\]"
+}
+
 GRAD1=`tty|cut -d/ -f3-4`
-C1="\[\033[1;39m\]"
-C2="\[\033[1;36m\]"
-C3="\[\033[1;30m\]"
-C4="\[\033[0;36m\]"
-C5="\[\033[0;39m\]"
+C1=$(color $WHITE  $BOLD)
+C2=$(color $YELLOW $BOLD)
+C3=$(color $GREY   $BOLD)
+C4=$(color $YELLOW $BOLD)
+C5=$(color $WHITE)
 
 # change color for root
 if [ $(id -u) -eq 0 ]; then
-    C2="\[\033[1;31m\]"
-    C4="\[\033[1;31m\]"
+	C2=$(color $RED $BOLD)
+	C4=$(color $RED $BOLD)
 fi
 
-PS1="$C2[$C4\u@\h$C3:$C5\w$C2] [$C3!$C4\! $C3@$C4\$(get-time)$C4 $C3&$C4\j$C2]\n[$C3\$(git-branch)$C4\$$C2>$C5 "
+# here's the real stuff
+PS1="$C2[$C4\u@\h$C3:$C5\w$C2] [$C3!$C4\! $C3@$C4\$(get-time)$C4 $C3&$C4\j$C2]\n$C2[$C3\$(git-branch)$C4\$$C2>$C5 "
 PS2=" $C3|$C5 "
 PS4=" $C3+$C5 "
