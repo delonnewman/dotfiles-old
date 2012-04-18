@@ -39,8 +39,9 @@ export PATH=$PATH:$HOME/bin:$HOME/.local/android-sdk-linux_86/tools:$HOME/.local
 export CDPATH=.:~:/media:/:/etc/:/var:/usr
 export HISTIGNORE="&:ls:[bf]g:exit"
 export EDITOR=vim
-export BROWSER=firefox
+export BROWSER=gnome-www-browser
 export GOOGLE="http://google.com#q="
+export DDG="https://duckduckgo.com/?q="
 export GITHUB=https://delonnewman@github.com/delonnewman
 
 #
@@ -63,21 +64,21 @@ shopt -s dotglob
 function web {
     location=$@
     if [ -z $@ ]; then
-	file=$(tempfile)
+    file=$(tempfile)
 
-	while read -t .5 line; do
-	    echo $line >> $file
-	done
+    while read -t .5 line; do
+        echo $line >> $file
+    done
 
-	if [ -s $file ]; then
-	    location=$file
-	fi
+    if [ -s $file ]; then
+        location=$file
+    fi
     fi
 
     if [ -z $BROWSER ]; then
-	echo BROWSER envrionment variable is not set
+    echo BROWSER envrionment variable is not set
     else
-    	$BROWSER $location &> /dev/null &
+        $BROWSER $location &> /dev/null &
     fi
 }
 
@@ -85,7 +86,7 @@ function google {
     USAGE="Usage: google QUERY"
 
     if [ -z "$@" ]; then
-	echo $USAGE
+    echo $USAGE
     else
         q=$@
         q=${q// /+}
@@ -93,17 +94,29 @@ function google {
     fi
 }
 
+function ddg {
+    USAGE="Usage: ddg QUERY"
+
+    if [ -z "$@" ]; then
+    echo $USAGE
+    else
+        q=$@
+        q=${q// /+}
+        web "$DDG"$q
+    fi
+}
+
 function gh-clone {
     USAGE='Usage: gh-clone REPO'
 
     if [ -z "$1" ]; then
-	echo $USAGE
+    echo $USAGE
     else
-	repo=$1
-	url=$GITHUB/$repo.git
+    repo=$1
+    url=$GITHUB/$repo.git
 
-	echo cloning from $url...
-    	$(git clone $url)
+    echo cloning from $url...
+        $(git clone $url)
     fi
 }
 
@@ -112,13 +125,13 @@ function u1-clone {
     u1="$HOME/Ubuntu One/git"
 
     if [ -z "$1" ]; then
-	echo $USAGE
+    echo $USAGE
     else
-	repo=$1
-	path="$u1/$repo.git"
+    repo=$1
+    path="$u1/$repo.git"
 
-	echo cloning from $path...
-    	$(git clone "$path")
+    echo cloning from $path...
+        $(git clone "$path")
     fi
 }
 
@@ -146,9 +159,9 @@ function get-time {
     t=$(date +%I:%M:%S)
     hour=$(date +%k)
     if (( $hour > $END )) || (( $hour < $BEGIN )) ; then
-	echo -e '\033[0;31m'$t
+    echo -e '\033[0;31m'$t
     else
-	echo $t
+    echo $t
     fi
 }
 
@@ -171,12 +184,12 @@ BOLD=1
 NORMAL=0
 
 function color {
-	COLOR=$1
-	BOLD=$2
-	if [ -z $2 ]; then
-		BOLD=0
-	fi
-	echo "\[\033[${BOLD};${COLOR}m\]"
+    COLOR=$1
+    BOLD=$2
+    if [ -z $2 ]; then
+        BOLD=0
+    fi
+    echo "\[\033[${BOLD};${COLOR}m\]"
 }
 
 GRAD1=`tty|cut -d/ -f3-4`
@@ -188,8 +201,8 @@ C5=$(color $WHITE)
 
 # change color for root
 if [ $(id -u) -eq 0 ]; then
-	C2=$(color $RED $BOLD)
-	C4=$(color $RED $BOLD)
+    C2=$(color $RED $BOLD)
+    C4=$(color $RED $BOLD)
 fi
 
 # here's the real stuff
