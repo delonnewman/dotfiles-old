@@ -1,2 +1,3 @@
 @ECHO OFF
-perl %HOMEPATH%\bin\web %1
+set cwd=%~dp0
+perl %cwd%web %1

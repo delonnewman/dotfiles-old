@@ -1,2 +1,3 @@
 @ECHO OFF
-perl %HOMEPATH%\bin\grep %*
+set cwd=%~dp0
+perl %cwd%grep %1

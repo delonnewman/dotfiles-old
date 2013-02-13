@@ -1,2 +1,3 @@
 @ECHO OFF
-perl %HOMEPATH%\bin\google %*
+set cwd=%~dp0
+perl %cwd%google %1

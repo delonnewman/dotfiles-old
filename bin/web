@@ -1,5 +1,6 @@
-#!perl
-use v5.14;
+#!/usr/bin/env perl
+use strict;
+use warnings;
 
 use Cwd;
 use File::Spec;
@@ -8,8 +9,8 @@ use File::Temp qw{ tempfile };
 my $BROWSER = $ENV{BROWSER};
 
 unless ( $BROWSER ) {
-    say "You must set your BROWSER environment variable\n",
-        "to the path of your prefered web browser.";
+    print "You must set your BROWSER environment variable\n",
+          "to the path of your prefered web browser.\n";
 
     exit(0);
 }
@@ -18,7 +19,11 @@ unless ( $BROWSER ) {
 my $f = do {
     if ( $ARGV[0] && -e $ARGV[0] ) {
         File::Spec->join(cwd, shift @ARGV);
-    } else {
+	}
+	elsif ( $ARGV[0] && $ARGV[0] =~ /^http/ ) {
+		$ARGV[0];
+    }
+	else {
         local $/ = undef; # slurp mode
         my $input = <>;
         my ($fh, $f) = tempfile();
@@ -28,8 +33,7 @@ my $f = do {
     }
 };
 
-if ( -e $f ) { system($BROWSER, $f, @ARGV) } 
-else         { die "'$f' is not a valid file" }
+system($BROWSER, $f);
 
 __END__
 

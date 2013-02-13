@@ -1,2 +1,3 @@
 @ECHO OFF
-perl %HOMEPATH%\bin\gh-clone %*
+set cwd=%~dp0
+perl %cwd%gh-clone %1
