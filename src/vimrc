@@ -1,5 +1,5 @@
 " General
-"set nocompatible
+set nocompatible
 filetype on
 filetype plugin on
 filetype indent plugin on
@@ -13,7 +13,62 @@ set viminfo+=!
 " Theme/Colors
 set background=dark
 syntax on
-colorscheme slate2
+colorscheme desert
+
+" Pathogen
+call pathogen#infect()
+
+" Vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Bundles
+" General
+Bundle "gmarik/vundle"
+Bundle "tpope/vim-surround"
+Bundle "scrooloose/nerdtree"
+Bundle "mattn/zencoding-vim"
+Bundle "mattn/webapi-vim"
+Bundle "mattn/gist-vim"
+Bundle "mattn/calendar-vim"
+Bundle "taglist.vim"
+Bundle "mileszs/ack.vim"
+Bundle "vimwiki"
+
+" Git
+Bundle "tpope/vim-fugitive"
+
+" Perl
+Bundle "vim-perl/vim-perl"
+
+" Ruby
+Bundle "tpope/vim-rails"
+Bundle "tpope/vim-haml"
+Bundle "tpope/vim-bundler"
+Bundle "tpope/vim-rake"
+Bundle "vim-ruby/vim-ruby"
+" TODO: add a conditional for windows
+" look for or write similar plugin for pik
+if has('win32')
+	" use pik plugin
+else
+	Bundle "tpope/vim-rvm"
+end
+
+" Markdown
+Bundle "tpope/vim-markdown"
+
+" Java/JVM
+Bundle "tpope/vim-classpath"
+
+" Scala
+Bundle "megaannum/self"
+Bundle "megaannum/forms" 
+Bundle "Shougo/vimproc"
+Bundle "Shougo/vimshell"
+Bundle "aemoncannon/ensime"
+Bundle "megaannum/vimside"
+
 
 " Files/Backups
 "set backup
@@ -36,7 +91,7 @@ set shortmess=atI
 " Visual Cues
 set showmatch " show matching brackets
 set mat=5 " rate of bracket blinkage (in tenths of a sec)
-set hlsearch " hightligh for search phrases
+set nohlsearch " no hightligh for search phrases
 set incsearch " but do highlight while searching
 set so=10
 set statusline=%F%m%r%h%w\ \|\ format:%{&ff}\ \|\ type:%y\ \|\ ascii:\%03.3b\ \|\ l%4.4l,\ c%4.4v\ \|\ %3.3p%%\ \|\ len:%L 
@@ -53,18 +108,12 @@ set noexpandtab
 set wrap
 set smarttab
 
-" MiniBufExplorer
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-
 " Tasklist
 map T :TaskList<CR>
 "map P :TlistToggle<CR>
 
+" Python indent
 au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
-au FileType coffee setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 au FileType ruby setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
 set dict+=~/.vim/dictionaries/drupal50-functions.dict
@@ -76,31 +125,8 @@ iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 iab xcfor for (i = 0; i <= 10; i++)<cr>
 iab xcs using System;<CR><CR>class NewClass<CR>{<CR><TAB>static void Main ()<CR>{<CR><TAB><CR>}<CR>}
 
-if has("autocmd")
-	" Drupal *.module and *.install files.
-	augroup module
-		autocmd BufRead,BufNewFile *.module set filetype=php
-		autocmd BufRead,BufNewFile *.install set filetype=php
-	augroup END
-endif
-
 " Vala
 autocmd BufRead *.vala set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 autocmd BufRead *.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 au BufRead,BufNewFile *.vala            setfiletype vala
 au BufRead,BufNewFile *.vapi            setfiletype vala
-
-set hls
-let g:HLSpace = 1
-let g:HLColorScheme = g:colors_name
-function ToggleSpaceUnderscoring()
-    if g:HLSpace
-        highlight Search cterm=underline gui=underline ctermbg=none guibg=none ctermfg=none guifg=none
-        let @/ = " "
-    else
-        highlight clear
-        silent colorscheme "".g:HLColorScheme
-        let @/ = ""
-    endif
-    let g:HLSpace = !g:HLSpace
-endfunction
