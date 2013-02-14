@@ -1,0 +1,6 @@
+[submodule "ext/vim/pathogen"]
+	path = ext/vim/pathogen
+	url = https://github.com/tpope/vim-pathogen.git
+[submodule "vundle"]
+	path = ext/vim/vundle
+	url = https://github.com/gmarik/vundle.git
