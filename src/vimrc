@@ -50,9 +50,9 @@ Bundle "vim-ruby/vim-ruby"
 " TODO: add a conditional for windows
 " look for or write similar plugin for pik
 if has('win32')
-	" use pik plugin
+  " use pik plugin
 else
-	Bundle "tpope/vim-rvm"
+  Bundle "tpope/vim-rvm"
 end
 
 " Markdown
@@ -101,10 +101,10 @@ set laststatus=2 " always show the status line
 set ai " autoindent
 set si " smartindent
 set cindent " c style indenting
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set noexpandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
 set wrap
 set smarttab
 
@@ -114,9 +114,6 @@ map T :TaskList<CR>
 
 " Python indent
 au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
-au FileType ruby setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
-
-set dict+=~/.vim/dictionaries/drupal50-functions.dict
 
 " Abrev
 iab xperl #!/usr/bin/perl<CR>use warnings;<CR>use strict;<CR>

@@ -17,17 +17,17 @@ module Dotfiles
   class Sums
     PATH = File.join(HOME, '.dotfiles')
 
-	  def self.generate
-		  @@sums = {}
-		  Dir.walk('src') do |fname|
-		    if not File.directory?(fname)
-		      sum = Digest::SHA256.new.update(IO.read(fname)).to_s
-		      @@sums[fname] = sum
-		    end
-		  end
-	    @@sums['total'] = Digest::SHA256.new.update(@@sums.values.join('')).to_s
-	    @@sums
-	  end
+    def self.generate
+      @@sums = {}
+      Dir.walk('src') do |fname|
+        if not File.directory?(fname)
+          sum = Digest::SHA256.new.update(IO.read(fname)).to_s
+          @@sums[fname] = sum
+        end
+      end
+      @@sums['total'] = Digest::SHA256.new.update(@@sums.values.join('')).to_s
+      @@sums
+    end
 
     def self.save(path=PATH)
       generate unless @@sums
@@ -45,7 +45,7 @@ module Dotfiles
     end
   end
 
-	def self.installed?
+  def self.installed?
     Sums.load['total'] == Sums.generate['total']
-	end
+  end
 end

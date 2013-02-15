@@ -5,7 +5,6 @@ require 'yaml'
 require 'fileutils'
 require './lib/dotfiles.rb'
 
-HOME = RUBY_PLATFORM =~ /win32/i ? ENV['HOMEPATH'] : ENV['HOME']
 
 desc "install dotfiles in home path"
 task :install do
@@ -19,9 +18,9 @@ task :install do
       if File.directory?(fname)
         FileUtils.cp_r fname, dir, :remove_destination => true
       else
-  	    File.open(File.join(HOME, ".#{File.basename(fname)}"), 'w') do |f|
-  	      f.write(ERB.new(IO.read(fname)).result)
-  	    end
+        File.open(File.join(HOME, ".#{File.basename(fname)}"), 'w') do |f|
+          f.write(ERB.new(IO.read(fname)).result)
+        end
       end
     end
     puts "DONE."
