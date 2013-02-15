@@ -97,7 +97,8 @@ fi
 cd $TMP_DIR &&
 git clone --depth 1 -- $GIT_REPO &&
 cd dotfiles &&
-rake install
+# use default task
+rake
 
 # clean up after yourself :-|
 if [[ -e "$TMP_DIR/dotfiles" ]]; then
