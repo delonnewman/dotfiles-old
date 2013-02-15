@@ -59,24 +59,28 @@ desc "install dotfiles in home path"
 task :install do
   if Dotfiles.installed?
     puts "dotfiles are already installed."
-    exit
-  end
-
-  puts "Installing dotfiles..."
-  Dir['src/*'].each do |fname|
-    dir = File.join(HOME, ".#{File.basename(fname)}")
-    puts "#{fname} => #{dir}"
-    if File.directory?(fname)
-      FileUtils.cp_r fname, dir, :remove_destination => true
-    else
-	    File.open(File.join(HOME, ".#{File.basename(fname)}"), 'w') do |f|
-	      f.write(ERB.new(IO.read(fname)).result)
-	    end
+  else
+    puts "Installing dotfiles..."
+    Dir['src/*'].each do |fname|
+      dir = File.join(HOME, ".#{File.basename(fname)}")
+      puts "#{fname} => #{dir}"
+      if File.directory?(fname)
+        FileUtils.cp_r fname, dir, :remove_destination => true
+      else
+  	    File.open(File.join(HOME, ".#{File.basename(fname)}"), 'w') do |f|
+  	      f.write(ERB.new(IO.read(fname)).result)
+  	    end
+      end
     end
+    puts "DONE."
+  
+    Rake::Task[:checksum].execute
   end
-  puts "DONE."
+end
 
-  Rake::Task[:checksum].execute
+desc "Install scripts from bin dir"
+task :bin do
+  sh "cp ./bin/* #{ENV['HOME']}/bin"
 end
 
 desc "generate checksum profile of files"
@@ -100,4 +104,4 @@ task :clear do
   sh "rm -f #{index}"
 end
 
-task :default => :install
+task :default => [ :install, :bin ]
