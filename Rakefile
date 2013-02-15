@@ -2,6 +2,7 @@ require 'erb'
 require 'fileutils'
 require 'digest'
 require 'yaml'
+require 'fileutils'
 
 HOME = RUBY_PLATFORM =~ /win32/i ? ENV['HOMEPATH'] : ENV['HOME']
 
@@ -108,6 +109,27 @@ task :clear do
   end
   index = File.join(HOME, '.dotfiles')
   sh "rm -f #{index}"
+end
+
+namespace :vim do
+  desc "Install pathogen"
+  task :pathogen do
+    path = "#{ENV['HOME']}/.vim/autoload"
+    FileUtils.mkpath path
+    FileUtils.mkpath "#{ENV['HOME']}/.vim/bundle"
+    puts "Installing pathogen from Github..."
+    sh 'git submodule update --init ext/vim/pathogen'
+    sh "cp ext/vim/pathogen/autoload/pathogen.vim #{path}"
+    puts 'done.'
+  end
+
+  desc "Install vundle"
+  task :vundle => :pathogen do
+    puts "Installing vundle from Github..."
+    sh 'git submodule update --init ext/vim/vundle'
+    sh "cp -r ext/vim/vundle #{ENV['HOME']}/.vim/bundle"
+    puts 'done.';
+  end
 end
 
 task :default => [ :install, :bin ]
