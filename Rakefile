@@ -84,8 +84,8 @@ task :bin do
   puts "==> Installing binaries..."
   Dir['./bin/*'].each do |f|
     next if File.directory? f
-    sh "cp #{f} #{ENV['HOME']}/bin"
-    sh "chmod +x #{ENV['HOME']}/bin/#{File.basename(f)}"
+    sh "cp #{f} #{HOME}/bin"
+    sh "chmod +x #{HOME}/bin/#{File.basename(f)}"
   end
   puts "DONE."
 end
@@ -112,11 +112,14 @@ task :clear do
 end
 
 namespace :vim do
+  desc "Install vim configuration"
+  task :all => [ :pathogen, :vundle, :install_plugins ]
+
   desc "Install pathogen"
   task :pathogen do
-    path = "#{ENV['HOME']}/.vim/autoload"
+    path = "#{HOME}/.vim/autoload"
     FileUtils.mkpath path
-    FileUtils.mkpath "#{ENV['HOME']}/.vim/bundle"
+    FileUtils.mkpath "#{HOME}/.vim/bundle"
     puts "Installing pathogen from Github..."
     sh 'git submodule update --init ext/vim/pathogen'
     sh "cp ext/vim/pathogen/autoload/pathogen.vim #{path}"
@@ -127,9 +130,14 @@ namespace :vim do
   task :vundle => :pathogen do
     puts "Installing vundle from Github..."
     sh 'git submodule update --init ext/vim/vundle'
-    sh "cp -r ext/vim/vundle #{ENV['HOME']}/.vim/bundle"
+    sh "cp -r ext/vim/vundle #{HOME}/.vim/bundle"
     puts 'done.';
+  end
+
+  desc "Install vim plugins with vundle"
+  task :install_plugins do
+    sh "vim +BundleInstall +qall"
   end
 end
 
-task :default => [ :install, :bin ]
+task :default => [ :install, :bin, :"vim:all" ]
