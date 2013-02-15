@@ -4,13 +4,13 @@
 #
 # CONFIG
 #
-RUBY_VERSION=1.9.2
+RUBY_VERSION=1.9.3
 GIT_REPO=https://github.com/delonnewman/dotfiles.git
-SELF_URL=https://raw.github.com/delonnewman/dotfiles/master/bin/fetch
+SELF_URL=https://raw.github.com/delonnewman/dotfiles/master/scripts/setup
 TMP_DIR=/tmp
-PREREQS=(git curl build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev)
+PREREQS=(git curl build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev vim)
 PACKAGES=(vim-gnome tig openssh-client htop)
-GEMS=(rails sinatra datamapper haml rake chef rspec cucumber)
+GEMS=(rake)
 
 FETCH_SRC="
 #!/bin/sh
@@ -116,15 +116,15 @@ echo
 echo "DONE."
 echo
 
-echo "====> installing myself in $HOME/bin/fetch-dotfiles..."
-echo "$FETCH_SRC" > $HOME/bin/fetch-dotfiles
-chmod +x  $HOME/bin/fetch-dotfiles
+echo "====> installing myself in $HOME/bin/setup..."
+echo "$FETCH_SRC" > $HOME/bin/setup
+chmod +x  $HOME/bin/setup
 echo 'DONE. @> <tweet!>'
 echo '     <|>'
 echo '      ^ '
 
 echo
 echo 'Your environment is configured as best I know how ;-)'
-echo "NOTE: if you need me again just type 'fetch-dotfiles'"
+echo "NOTE: if you need me again just type 'setup'"
 echo
 
