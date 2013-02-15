@@ -60,7 +60,7 @@ task :install do
   if Dotfiles.installed?
     puts "dotfiles are already installed."
   else
-    puts "Installing dotfiles..."
+    puts "==> Installing dotfiles..."
     Dir['src/*'].each do |fname|
       dir = File.join(HOME, ".#{File.basename(fname)}")
       puts "#{fname} => #{dir}"
@@ -78,9 +78,15 @@ task :install do
   end
 end
 
-desc "Install scripts from bin dir"
+desc "Install binaries"
 task :bin do
-  sh "cp ./bin/* #{ENV['HOME']}/bin"
+  puts "==> Installing binaries..."
+  Dir['./bin/*'].each do |f|
+    next if File.directory? f
+    sh "cp #{f} #{ENV['HOME']}/bin"
+    sh "chmod +x #{ENV['HOME']}/bin/#{File.basename(f)}"
+  end
+  puts "DONE."
 end
 
 desc "generate checksum profile of files"
