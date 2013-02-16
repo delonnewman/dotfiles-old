@@ -8,7 +8,7 @@ RUBY_VERSION=1.9.3
 GIT_REPO=https://github.com/delonnewman/dotfiles.git
 SELF_URL=https://raw.github.com/delonnewman/dotfiles/master/scripts/setup
 TMP_DIR=/tmp
-PREREQS=(git curl build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev vim)
+PREREQS=(git curl build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev vim exuberant-ctags)
 PACKAGES=(vim-gnome tig openssh-client htop)
 GEMS=(rake)
 
