@@ -90,7 +90,7 @@ echo
 
 # if needed clean up after previous (failed) installation
 if [[ -e "$TMP_DIR/dotfiles" ]]; then
-  rm -f "$TMP_DIR/dotfiles"
+  rm -rf "$TMP_DIR/dotfiles"
 fi
 
 # install dotfiles
