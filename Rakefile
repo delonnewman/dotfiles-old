@@ -1,10 +1,6 @@
 require 'erb'
 require 'fileutils'
-require 'digest'
-require 'yaml'
-require 'fileutils'
 require './lib/dotfiles.rb'
-
 
 desc "install dotfiles in home path"
 task :install do
@@ -19,6 +15,7 @@ task :install do
         FileUtils.cp_r fname, dir, :remove_destination => true
       else
         File.open(File.join(HOME, ".#{File.basename(fname)}"), 'w') do |f|
+          # process embedded Ruby code in config files
           f.write(ERB.new(IO.read(fname)).result)
         end
       end

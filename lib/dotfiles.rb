@@ -1,3 +1,6 @@
+require 'digest'
+require 'yaml'
+
 HOME = RUBY_PLATFORM =~ /win32/i ? ENV['HOMEPATH'] : ENV['HOME']
 
 def Dir.walk(dir, &blk)
