@@ -1,37 +1,6 @@
 # .bashrc
 
 #
-# Aliases
-# 
-alias ls='ls -sFk -h --color=auto'
-alias dir='dir --color=auto -1'
-alias du='du -h'
-alias df='df -hT'
-alias r='fc -s'
-alias mime='file -i'
-alias rm='rm -r'
-alias cp='cp -r'
-alias grep='grep --color=auto'
-
-alias vim='screen vim'
-
-# git aliases
-alias ga='git add'
-alias gb='git branch'
-alias gco='git checkout'
-alias gr='git remote'
-alias grm='git rm'
-alias gc='git clone'
-alias gs='git status'
-alias gd='git diff'
-alias gco='git checkout'
-alias gbr='git branch'
-alias gl='git log'
-alias gpush='git push'
-alias gpull='git pull'
-alias gcommit='git commit'
-
-#
 # Envorionment Variables
 #
 export PROJECTS=$HOME/Projects
@@ -39,10 +8,14 @@ export PATH=$PATH:$HOME/bin:$HOME/.local/android-sdk-linux_86/tools:$HOME/.local
 export CDPATH=.:~:/media:/:/etc/:/var:/usr
 export HISTIGNORE="&:ls:[bf]g:exit"
 export EDITOR=vim
-export BROWSER=gnome-www-browser
+export BROWSER=chromium-browser
 export GOOGLE="http://google.com#q="
 export DDG="https://duckduckgo.com/?q="
+export MCPAN="https://metacpan.org/search?q="
+export CPAN="http://search.cpan.org/search?q="
 export GITHUB=https://delonnewman@github.com/delonnewman
+export GITHUB_USER=delonnewman
+export APPLE_ID=delon.newman@gmail.com
 
 #
 # Shell Options
@@ -114,6 +87,30 @@ function google {
         q=$@
         q=${q// /+}
         web "$GOOGLE"$q
+    fi
+}
+
+function mcpan {
+    USAGE="Usage: mcpan QUERY"
+
+    if [ -z "$@" ]; then
+    echo $USAGE
+    else
+        q=$@
+        q=${q// /+}
+        web "$MCPAN"$q
+    fi
+}
+
+function cpan {
+    USAGE="Usage: cpan QUERY"
+
+    if [ -z "$@" ]; then
+    echo $USAGE
+    else
+        q=$@
+        q=${q// /+}
+        web "$CPAN"$q
     fi
 }
 
@@ -189,6 +186,44 @@ function get-time {
 }
 
 #
+# Aliases
+# 
+alias ls='ls -sFk -h --color=auto'
+alias ll='ls -lA --color=auto'
+alias reload='source ~/.bashrc'
+alias dir='dir --color=auto -1'
+alias du='du -h'
+alias df='df -hT'
+alias r='fc -s'
+alias mime='file -i'
+alias rm='rm -r'
+alias cp='cp -r'
+alias grep='grep --color=auto'
+
+alias vim='screen vim'
+
+# git aliases
+alias ga='git add'
+alias gb='git branch'
+alias gco='git checkout'
+alias gr='git remote'
+alias grm='git rm'
+alias gc='git clone'
+alias gs='git status'
+alias gd='git diff'
+alias gco='git checkout'
+alias gbr='git branch'
+alias gl='git log'
+alias gpush='git push'
+alias gpull='git pull'
+alias gcommit='git commit'
+
+# apt-get aliases
+alias ag='sudo apt-get'
+alias agi='sudo apt-get install'
+alias ags='apt-cache search'
+
+#
 # Prompt Customization
 #
 
@@ -209,3 +244,6 @@ fi
 PS1="$C2[$C4\u@\h$C3:$C5\w$C2] [$C3!$C4\! $C3@$C4\$(get-time)$C4 $C3&$C4\j$C2]\n$C2[$C3\$(git-branch)$C4\$$C2>$C5 "
 PS2=" $C3|$C5 "
 PS4=" $C3+$C5 "
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
