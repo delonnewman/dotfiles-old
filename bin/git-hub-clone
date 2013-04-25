@@ -1,0 +1,84 @@
+#!/usr/bin/env perl
+use v5.14;
+use File::Basename;
+
+my $URL = 'https://{auth}github.com';
+my $BINNAME = basename($0);
+my $GITHUB_USER = $ENV{GITHUB_USER};
+
+if ( @ARGV ) {
+    my ($user, $repo) = split '/', shift @ARGV;
+
+    # if repo is undef assume $ARGV[0] is repo see USAGE
+    $repo || ($repo = $user) && ($user = undef);
+
+    # if there's no way to determine who the desired GitHub
+    # user is let the user know
+    unless ( $user ) {
+        if ( $GITHUB_USER ) {
+            $user = $GITHUB_USER;
+        } else {
+            say "You must specify a USER or set the GITHUB_USER\n",
+                "environment variable\n";
+            
+            say &usage;
+            exit(0);
+        }
+    }
+
+    # if a user is known and were getting a repo from
+    # their repo add authentication to $URL
+    if ( $GITHUB_USER && ($user eq $GITHUB_USER || !$user) ) {
+        $URL =~ s/{auth}/$GITHUB_USER@/;
+    } else {
+        $URL =~ s/{auth}//;
+    }
+
+    # construct $url
+    my $url = "$URL/$user/$repo";
+
+    # make sure $url ends with '.git'
+    unless ( $repo =~ /.git$/ ) {
+        $url .= '.git';
+    }
+
+    system('git', 'clone', @ARGV, $url);
+} else {
+    say &usage;
+}
+
+sub usage {
+    return <<USAGE;
+Usage: $BINNAME GITHUB_USER/REPO [GIT-CLONE ARGS]
+       $BINNAME REPO [GIT-CLONE ARGS]
+USAGE
+}
+
+__END__
+
+=head1 NAME
+
+C<gh-clone> - A cross-platform script to simplify cloning from GitHub
+
+=head1 USAGE
+
+    > gh-clone GITHUB_USER/REPOSITORY
+    > gh-clone REPOSITORY # gets GITHUB_USER from environment variable
+
+=head1 SYNOPSIS
+
+    > gh-clone delonnewman/dotfiles
+    > gh-clone dotfiles
+
+if C<$GITHUB_USER> is set to C<'delonnewman'> both commands clone
+the same repository
+
+=head1 CONFIGURATION
+
+    The C<GITHUB_USER> envrionment variable can be set.
+
+=head1 AUTHOR
+
+Delon Newman L<delon.newman@gmail.com>
+
+=end

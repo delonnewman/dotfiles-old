@@ -10,4 +10,4 @@ or
 
 just need bash & curl
 
-> bash < <(curl -s https://raw.github.com/delonnewman/dotfiles/master/bin/fetch)
+> bash < <(curl -s https://raw.github.com/delonnewman/dotfiles/master/scripts/setup)
