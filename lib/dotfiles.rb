@@ -23,7 +23,7 @@ module Dotfiles
     def self.generate
       @@sums = {}
       Dir.walk('src') do |fname|
-        if not File.directory?(fname)
+        unless File.directory?(fname)
           sum = Digest::SHA256.new.update(IO.read(fname)).to_s
           @@sums[fname] = sum
         end
