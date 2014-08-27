@@ -10,11 +10,6 @@ set clipboard+=unnamed
 set ffs=unix,dos,mac
 set viminfo+=!
 
-" Theme/Colors
-set background=dark
-syntax on
-colorscheme desert
-
 " Pathogen
 call pathogen#infect()
 
@@ -47,13 +42,6 @@ Bundle "tpope/vim-haml"
 Bundle "tpope/vim-bundler"
 Bundle "tpope/vim-rake"
 Bundle "vim-ruby/vim-ruby"
-" TODO: add a conditional for windows
-" look for or write similar plugin for pik
-if has('win32')
-  " use pik plugin
-else
-  Bundle "tpope/vim-rvm"
-end
 
 " Markdown
 Bundle "tpope/vim-markdown"
@@ -61,20 +49,19 @@ Bundle "tpope/vim-markdown"
 " Java/JVM
 Bundle "tpope/vim-classpath"
 
-" Scala
-Bundle "megaannum/self"
-Bundle "megaannum/forms" 
-Bundle "Shougo/vimproc"
-Bundle "Shougo/vimshell"
-Bundle "aemoncannon/ensime"
-Bundle "megaannum/vimside"
+" Clojure
+Bundle "kien/rainbow_parentheses.vim"
+Bundle "tpope/vim-leiningen"
+Bundle "tpope/vim-fireplace"
+Bundle "guns/vim-clojure-static"
+Bundle "guns/vim-clojure-highlight"
+
+au FileType clojure RainBowParenthesesToggle
 
 
-" Files/Backups
-"set backup
-"set backupdir=$VIM/vimfiles/backup
-"set directory=$VIM/vimfiles/temp
-"set makeef=error.err
+" Theme/Colors
+set background=dark
+syntax on
 
 " Vim UI
 set wildmenu
@@ -85,11 +72,9 @@ set lz " do not redraw when running macros
 set hid " change buf without saving
 set backspace=2
 set whichwrap+=<,>,h,l
-set mouse=a
 set shortmess=atI
 
 " Visual Cues
-set showmatch " show matching brackets
 set mat=5 " rate of bracket blinkage (in tenths of a sec)
 set nohlsearch " no hightligh for search phrases
 set incsearch " but do highlight while searching
@@ -107,23 +92,3 @@ set shiftwidth=2
 set expandtab
 set wrap
 set smarttab
-
-" Tasklist
-map T :TaskList<CR>
-"map P :TlistToggle<CR>
-
-" Python indent
-au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
-
-" Abrev
-iab xperl #!/usr/bin/perl<CR>use warnings;<CR>use strict;<CR>
-iab xpy #!/usr/bin/python<CR>
-iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
-iab xcfor for (i = 0; i <= 10; i++)<cr>
-iab xcs using System;<CR><CR>class NewClass<CR>{<CR><TAB>static void Main ()<CR>{<CR><TAB><CR>}<CR>}
-
-" Vala
-autocmd BufRead *.vala set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
-autocmd BufRead *.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
-au BufRead,BufNewFile *.vala            setfiletype vala
-au BufRead,BufNewFile *.vapi            setfiletype vala
